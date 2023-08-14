@@ -13,12 +13,10 @@ class Place(db.Model):
     latitude = db.Column(db.Float)
     longitude = db.Column(db.Float)
 
-# Create tables in the database
-db.create_all()
-
 # HOME ROUTE
 @app.route("/")
 def home():
+    #db.create_all()
     return "Welcome to Places API"
 
 # POST METHOD (CREATE) creation of a new place
@@ -26,17 +24,18 @@ def home():
 def create_place():
     data = request.json
 
-    if not data.name:
+    if "name" not in data:
         return jsonify({"error": "Place name not provided"}), 400
     
-    if not data.latitude:
+    if "latitude" not in data:
         return jsonify({"error": "Place latitude not provided"}), 400
     
-    if not data.longitude:
+    if "longitude" not in data:
         return jsonify({"error": "Place longitude not provided"}), 400
 
-    new_place = Place(name = data["name"], description = data.get("description"), 
-                      latitude = data["latitude"], longitude = data["longitude"])
+    new_place = Place(name=data['name'], description=data.get('description'),
+                  latitude=data.get('latitude'), longitude=data.get('longitude'))
+
     db.session.add(new_place)
     db.session.commit()
     return jsonify({"message": "Place created successfully", "id": new_place.id}), 201
@@ -78,4 +77,6 @@ def delete_place(place_id):
    return jsonify({"message": "Place deleted successfully"}), 200  
 
 if __name__ == "__main__":
+    with app.app_context():
+        db.create_all()
     app.run(debug=True)
