@@ -9,7 +9,7 @@ db = SQLAlchemy(app)
 class Place(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
-    description = db.Column(db.String(255))
+    description = db.Column(db.String(255)) #optional
     latitude = db.Column(db.Float)
     longitude = db.Column(db.Float)
 
