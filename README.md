@@ -1,22 +1,20 @@
 # Places API
 
 ## Requirements
-Package           Version
------------------ -------
-blinker           1.6.2
-click             8.1.6
-colorama          0.4.6
-Flask             2.3.2
-Flask-SQLAlchemy  3.0.5
-greenlet          2.0.2
-itsdangerous      2.1.2
-Jinja2            3.1.2
-MarkupSafe        2.1.3
-pip               23.1.2
-setuptools        65.5.0
-SQLAlchemy        2.0.19
-typing_extensions 4.7.1
-Werkzeug          2.3.7
+- blinker           1.6.2
+- click             8.1.6
+- colorama          0.4.6
+- Flask             2.3.2
+- Flask-SQLAlchemy  3.0.5
+- greenlet          2.0.2
+- itsdangerous      2.1.2
+- Jinja2            3.1.2
+- MarkupSafe        2.1.3
+- pip               23.1.2
+- setuptools        65.5.0
+- SQLAlchemy        2.0.19
+- typing_extensions 4.7.1
+- Werkzeug          2.3.7
 
 ## Getting Started
 
