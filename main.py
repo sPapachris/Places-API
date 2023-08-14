@@ -1,42 +1,81 @@
 from flask import Flask, request, jsonify
+from flask_sqlalchemy import SQLAlchemy
 
 app = Flask(__name__)
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///places.db"  # Using SQLite for simplicity
+db = SQLAlchemy(app)
+
+# Model definition
+class Place(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    description = db.Column(db.String(255))
+    latitude = db.Column(db.Float)
+    longitude = db.Column(db.Float)
+
+# Create tables in the database
+db.create_all()
 
 # HOME ROUTE
 @app.route("/")
 def home():
-    welcomeMessage = 'Welcome to Places API, here is the available endpoints \n 1. CREATE /create-place'
-    #flas2. READ /list-places
-    #3. UPDATE /update-place
-    #4. DELETE /delete-place
-    return welcomeMessage
+    return "Welcome to Places API"
 
 # POST METHOD (CREATE) creation of a new place
-@app.route("/create-place", methods=["POST"])
+@app.route("/places", methods=["POST"])
 def create_place():
-    #data = request.get_json()
-    #DATABASE INSERT TO VALUES
-    return "Created place" #jsonify(data), 201
+    data = request.json
+
+    if not data.name:
+        return jsonify({"error": "Place name not provided"}), 400
+    
+    if not data.latitude:
+        return jsonify({"error": "Place latitude not provided"}), 400
+    
+    if not data.longitude:
+        return jsonify({"error": "Place longitude not provided"}), 400
+
+    new_place = Place(name = data["name"], description = data.get("description"), 
+                      latitude = data["latitude"], longitude = data["longitude"])
+    db.session.add(new_place)
+    db.session.commit()
+    return jsonify({"message": "Place created successfully", "id": new_place.id}), 201
 
 # GET METHOD (READ) listing of all available places
-@app.route("/list-places")
-def list_places():
-    #data  = #DATABASE SELECT FROM
-    return "Listed places"#jsonify(data), 200
+@app.route("/places", methods = ["GET"])
+def get_places():
+    places = Place.query.all()
+    result = [{"id": place.id, "name": place.name, "description": place.description,
+               "latitude": place.latitude, "longitude": place.longitude} for place in places]
+    return jsonify(result), 200
 
 # PUT METHOD (UPDATE) update of details for a specific place
-@app.route("/update-place/<place_id>")
+@app.route("/places/<int:place_id>", methods=["PUT"])
 def update_place(place_id):
-    #DATABASE UPDATE FROM WHERE place_id
-    #data = SELECT FROM WHERE place_id
-    return "Updated place"#jsonify(data), 200
+    place = Place.query.get(place_id)
+
+    if not place:
+        return jsonify({"error": "Place not found"}), 404
+    
+    data = request.json
+    place.name = data["name"]
+    place.description = data.get("description")
+    place.latitude = data["latitude"]
+    place.longitude = data["longitude"]
+    db.session.commit()
+    return jsonify({"message": "Place updated successfully"}), 200                     
 
 # DELETE METHOD (DELETE) deletion of a place
-@app.route("/delete-place/<place_id>")
+@app.route("/places/<int:place_id>", methods=["DELETE"])
 def delete_place(place_id):
-    #DATABASE DELETE FROM WHERE place_id
-    #data = SELECT FROM WHERE place_id
-    return "Deleted place"#jsonify(data), 200
+   place = Place.query.get(place_id)
+
+   if not place:
+        return jsonify({"error": "Place not found"}), 404
+   
+   db.session.delete(place)
+   db.session.commit()
+   return jsonify({"message": "Place deleted successfully"}), 200  
 
 if __name__ == "__main__":
     app.run(debug=True)
