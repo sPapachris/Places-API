@@ -1,0 +1,8 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Delete Place</h2>
+<p>Are you sure you want to delete {{ place.name }}?</p>
+<a href="{{ url_for('web_delete_place', id=place.id) }}">Yes, Delete</a>
+<a href="{{ url_for('web_list_places') }}">Cancel</a>
+{% endblock %}

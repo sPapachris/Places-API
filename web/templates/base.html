@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Place Management</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <h1>Place Management</h1>
+    {% block content %}
+    <h2>Welcome to Places API Web Interface.</h2>
+    <a href="{{ url_for('web_create_place') }}">Create a place</a>
+    <br>
+    <a href="{{ url_for('web_list_places') }}">List of all places</a>
+    {% endblock %}
+</body>
+</html>
