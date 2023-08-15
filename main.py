@@ -154,7 +154,8 @@ def web_delete_place(id):
 
     if request.method == 'POST':
         response = requests.delete(f'{API_BASE_URL}/places/{id}')
-        if response.status_code == 204:
+        print("HELLOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO", response.status_code)
+        if response.status_code == 204 or response.status_code == 200:
             return redirect(url_for('web_list_places'))
 
     return render_template('confirm_delete.html', place=place)
