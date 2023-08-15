@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Confirm Delete</h2>
+    <p>Are you sure you want to delete the following place?</p>
+    <p>ID: {{place.id}}</p>
+    <p>Name: {{ place.name }}</p>
+    <p>Latitude: {{ place.latitude }}</p>
+    <p>Longitude: {{ place.longitude }}</p>
+    
+    <form method="post">
+        <input type="submit" value="Confirm Delete">
+    </form>
+    <br>
+    <a href="{{ url_for('web_list_places') }}">Cancel</a>
+{% endblock %}

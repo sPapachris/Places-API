@@ -44,6 +44,17 @@ def api_get_places():
                "latitude": place.latitude, "longitude": place.longitude} for place in places]
     return jsonify(result), 200
 
+# GET METHOD (READ) get a place
+@app.route("/api/places/<int:place_id>", methods = ["GET"])
+def api_get_place(place_id):
+    place = Place.query.get(place_id)
+    if not place:
+        return jsonify({"error": "Place not found"}), 404
+    
+    result = [{"id": place.id, "name": place.name, "description": place.description,
+               "latitude": place.latitude, "longitude": place.longitude}]
+    return jsonify(result), 200
+
 # PUT METHOD (UPDATE) update of details for a specific place
 @app.route("/api/places/<int:place_id>", methods=["PUT"])
 def api_update_place(place_id):
@@ -80,7 +91,7 @@ API_BASE_URL = 'http://127.0.0.1:5000/api'
 def web_home():
     return render_template('base.html')
 
-#Web Create places
+#Web Create
 @app.route('/create', methods=['GET', 'POST'])
 def web_create_place():
     if request.method == 'POST':
@@ -92,21 +103,34 @@ def web_create_place():
         }
         response = requests.post(f'{API_BASE_URL}/places', json=data)
         if response.status_code == 201:
-            return redirect(url_for('list_places'))
+            return redirect(url_for('web_list_places'))
     return render_template('create_place.html')
 
-#Web List of all places
+#Web List
 @app.route('/list')
 def web_list_places():
+    search_query = request.args.get('search_query')
+    sort_by = request.args.get('sort_by')
+
     response = requests.get(f'{API_BASE_URL}/places')
     places = response.json()
+
+    if search_query:
+        # Filter the list of places based on the search query
+        places = [place for place in places if search_query.lower() in place['name'].lower()]
+
+    if sort_by:
+        # Sort the list of places based on the selected field
+        places.sort(key=lambda place: place.get(sort_by, ''))
+
     return render_template('list_places.html', places=places)
 
-#Web Update place
+#Web Update
 @app.route('/update/<int:id>', methods=['GET', 'POST'])
 def web_update_place(id):
     response = requests.get(f'{API_BASE_URL}/places/{id}')
     place = response.json()
+    place = place[0]
 
     if request.method == 'POST':
         updated_data = {
@@ -117,20 +141,21 @@ def web_update_place(id):
         }
         response = requests.put(f'{API_BASE_URL}/places/{id}', json=updated_data)
         if response.status_code == 200:
-            return redirect(url_for('list_places'))
+            return redirect(url_for('web_list_places'))
 
     return render_template('update_place.html', place=place)
 
-#Web Delete place
+#Web Delete
 @app.route('/delete/<int:id>', methods=['GET', 'POST'])
 def web_delete_place(id):
     response = requests.get(f'{API_BASE_URL}/places/{id}')
     place = response.json()
+    place = place[0]
 
     if request.method == 'POST':
         response = requests.delete(f'{API_BASE_URL}/places/{id}')
         if response.status_code == 204:
-            return redirect(url_for('list_places'))
+            return redirect(url_for('web_list_places'))
 
     return render_template('confirm_delete.html', place=place)
 

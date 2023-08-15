@@ -1,17 +1,26 @@
-{% extends 'base.html' %}
-
-{% block content %}
 <h2>List of all Places</h2>
+<form method="get" action="{{ url_for('web_list_places') }}">
+    <p> Search by name</p>
+    <input type="text" name="search_query" placeholder="Search...">
+    <button type="submit">Search</button>
+    <br>
+    <br>
+    <a href="{{ url_for('web_create_place') }}">Create a place</a>
+    <br>
+</form>
+<br>
 <table>
     <tr>
-        <th>Name</th>
+        <th><a href="{{ url_for('web_list_places', sort_by='id') }}">ID</a></th>
+        <th><a href="{{ url_for('web_list_places', sort_by='name') }}">Name</a></th>
         <th>Description</th>
-        <th>Latitude</th>
-        <th>Longitude</th>
+        <th><a href="{{ url_for('web_list_places', sort_by='latitude') }}">Latitude</a></th>
+        <th><a href="{{ url_for('web_list_places', sort_by='longitude') }}">Longitude</a></th>
         <th>Actions</th>
     </tr>
     {% for place in places %}
     <tr>
+        <td>{{ place.id }}</td>
         <td>{{ place.name }}</td>
         <td>{{ place.description }}</td>
         <td>{{ place.latitude }}</td>
@@ -23,4 +32,3 @@
     </tr>
     {% endfor %}
 </table>
-{% endblock %}
