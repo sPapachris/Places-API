@@ -1,7 +1,6 @@
 # Places API
  
- For this project I used Flask and SQLAlchemy. For API Testing I used Postman API
-
+The application exposes both a Rest API (for programmatic access) and a web user interface (admin) for place management. The main packages I used are Flask and SQLAlchemy. For API Testing I used Postman API.
 
 ## Requirements
 - Python 3.11.4
@@ -20,11 +19,10 @@
 - MarkupSafe 2.1.3
 - pip 23.1.2
 - requests 2.31.0
-- setuptools 65.5.0
-- SQLAlchemy 2.0.19
+- SQLAlchemy 2.0.20
 - typing_extensions 4.7.1
 - urllib3 2.0.4
-- Werkzeug 2.3.6
+- Werkzeug 2.3.7
 
 ## Getting Started
 
@@ -46,27 +44,7 @@
    cd your-repo
    ```
 
-3. **Create and Activate Virtual Environment:**
-
-   Create a virtual environment named `venv`:
-
-   On macOS or Linux:
-
-   ```bash
-   python3 -m venv venv
-   source venv/bin/activate
-   ```
-
-   On Windows:
-
-   ```bash
-   python -m venv venv
-   venv\Scripts\activate
-   ```
-
-   After activation, your terminal prompt should change, indicating that you are now within the virtual environment.
-
-4. **Install Dependencies:**
+3. **Install Dependencies:**
 
    While the virtual environment is active, install the required packages from the `requirements.txt` file:
 
@@ -74,7 +52,7 @@
    pip install -r requirements.txt
    ```
 
-5. **Run the Flask App:**
+4. **Run the Flask App:**
 
    Now you can run the Flask app:
 
@@ -84,18 +62,6 @@
 
    Flask app should start running, and you'll see output indicating that the development server is running.
 
-6. **Access the App:**
+5. **Access the App:**
 
    Open your web browser and navigate to `http://127.0.0.1:5000/` (or `http://localhost:5000/`). You should see the output of your running Flask app.
-
-Remember that whenever you want to work on your project, you should activate the virtual environment first using the appropriate activation command (`source venv/bin/activate` on macOS/Linux or `venv\Scripts\activate` on Windows).
-
-When you're done working on your project, you can deactivate the virtual environment:
-
-```bash
-deactivate
-```
-
-This will return you to your system's global Python environment.
-
-By following these steps, you're setting up your Flask project within a virtual environment, ensuring that the project's dependencies are isolated from your system-wide Python environment.

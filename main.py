@@ -14,7 +14,7 @@ class Place(db.Model):
     latitude = db.Column(db.Float)
     longitude = db.Column(db.Float)
 
-#API Routes
+# API Routes
 # POST METHOD (CREATE) creation of a new place
 @app.route("/api/places", methods=["POST"])
 def api_create_place():
@@ -44,7 +44,7 @@ def api_get_places():
                "latitude": place.latitude, "longitude": place.longitude} for place in places]
     return jsonify(result), 200
 
-# GET METHOD (READ) get a place
+# GET METHOD (READ) get a single place
 @app.route("/api/places/<int:place_id>", methods = ["GET"])
 def api_get_place(place_id):
     place = Place.query.get(place_id)
@@ -83,10 +83,11 @@ def api_delete_place(place_id):
    db.session.commit()
    return jsonify({"message": "Place deleted successfully"}), 200  
 
+
 #Web Interface Routes
 API_BASE_URL = 'http://127.0.0.1:5000/api'
 
-# HOME ROUTE
+# Web Home Route
 @app.route("/")
 def web_home():
     return render_template('base.html')
@@ -145,7 +146,7 @@ def web_update_place(id):
 
     return render_template('update_place.html', place=place)
 
-#Web Delete
+#Web Delete & Confirmation
 @app.route('/delete/<int:id>', methods=['GET', 'POST'])
 def web_delete_place(id):
     response = requests.get(f'{API_BASE_URL}/places/{id}')
