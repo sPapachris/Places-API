@@ -1,0 +1,170 @@
+{
+	"info": {
+		"_postman_id": "8e99fffc-d547-4606-8731-429b3c0d6f60",
+		"name": "Places API",
+		"description": "This is an API that lets you manage places using JSON.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29121376"
+	},
+	"item": [
+		{
+			"name": "Get all places",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/places",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"places"
+					]
+				},
+				"description": "This request returns a list of all available places in the Database."
+			},
+			"response": []
+		},
+		{
+			"name": "Get a single place",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/api/places/:id",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"places",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "",
+							"description": "Should be Integer"
+						}
+					]
+				},
+				"description": "This request returns a single place indicated by the given :id on the URL."
+			},
+			"response": []
+		},
+		{
+			"name": "Create a place",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/places",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"places"
+					]
+				},
+				"description": "This request lets the user create a place. The API expects the data to be given in a JSON format with the below fields:\n\nname =String(100) (required)  \ndescription = String(255) (optional)  \nlatitude = Float (required)  \nlongitude = Float (required)"
+			},
+			"response": []
+		},
+		{
+			"name": "Update a place",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:5000/places/:place_id",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"places",
+						":place_id"
+					],
+					"variable": [
+						{
+							"key": "place_id",
+							"value": "",
+							"description": "Should be Integer"
+						}
+					]
+				},
+				"description": "This request lets the user update a place specified by the given :id of the URL. The API expects the data to be given in a JSON format with the below fields:\n\nname =String(100) (required)  \ndescription = String(255) (optional)  \nlatitude = Float (required)  \nlongitude = Float (required)"
+			},
+			"response": []
+		},
+		{
+			"name": "Delete a place",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://127.0.0.1:5000/places/:place_id",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "5000",
+					"path": [
+						"places",
+						":place_id"
+					],
+					"variable": [
+						{
+							"key": "place_id",
+							"value": "",
+							"description": "Should be Integer"
+						}
+					]
+				},
+				"description": "This request lets the user delete a place specified by the given :id of the URL. There is no confirmation warning for this action."
+			},
+			"response": []
+		}
+	]
+}

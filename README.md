@@ -1,6 +1,6 @@
 # Places API
  
-The application exposes both a Rest API (for programmatic access) and a web user interface (admin) for place management. The main packages I used are Flask and SQLAlchemy. For API Testing I used Postman API.
+The application exposes both a Rest API (for programmatic access) and a web user interface (admin) for place management. The main packages I used are Flask and SQLAlchemy. For API Testing and Documentation I used Postman API.
 
 ## Requirements
 - Python 3.11.4
